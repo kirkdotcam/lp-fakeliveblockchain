@@ -48,7 +48,8 @@ def socket_connection():
 
 @socketio.on("disconnect")
 def socket_disconnection(data):
-    print("")
+    print(data)
+    print("a user disconnected")
 
 @socketio.on("newkeys")
 def socket_newkeys():

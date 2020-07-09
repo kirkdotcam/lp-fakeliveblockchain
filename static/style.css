@@ -1,0 +1,30 @@
+.chat-window {
+    border:2px solid black;
+    height:300px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    
+}
+
+#userInfo-panel {
+    word-wrap:break-word;
+}
+
+#chat-panel {
+    padding-top:3%;
+}
+
+#userInfo-panel, #decrypt-panel, #serverMessage-panel, #decryptedMessage-panel {
+    border: 2px dashed black;
+}
+
+.userMessage {
+    background-color: dodgerblue;
+}
+
+.otherMessage {
+    background-color: slategray;
+}
+
+

@@ -6,44 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
         integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
     <title>Two-Chain</title>
 </head>
 
 <body>
-    <div>
-        <h1>Welcome to Two-Chain</h1>
-        <h3>A (not) 2U product</h3>
-    </div>
 
-    <div>
-        <section id="userInfo">
-            <h1 id="titleheader"></h1>
-            <h2>Your Public Key</h2>
-            <p id="userpublic"></p>
-            <h2>Your Private Key</h2>
-            <p id="userprivate"></p>
-            <button onclick="sendmessage()">Send Message</button>
-            <button onclick="newKeys()">Request New Keys</button>
-        </section>
-        <section id="decrypt">
-            <label for="toDecrypt">Text to Decrypt</label>
-            <input type="text" id="toDecrypt">
-            <label for="yourPrivate">YourPrivate Key</label>
-            <input type="text" id="yourPrivate">
-            <button id="decrypt" onClick="decrypt()">Decrypt</button>
-        </section>
-        <section id="chat">
-            <div>
-                <ul id="chat"></ul>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="">
+                    <h1>Welcome to Two-Chain</h1>
+
+                    <h3>A (not) 2U product</h3>
+                </div>
+                <section id="userInfo-panel">
+                    <h1 id="titleheader"></h1>
+                    <h3>Your Public Key</h3>
+                    <p id="userpublic"></p>
+                    <h3>Your Private Key</h3>
+                    <p id="userprivate"></p>
+                    <button onclick="newKeys()">Request New Keys</button>
+                </section>
+                <br>
+                <section id="decrypt-panel">
+                    <h3>Decryption Panel</h3>
+                    <br>
+                    <label for="toDecrypt">Text to Decrypt</label>
+                    <input type="text" id="toDecrypt">
+                    <br>
+                    <label for="yourPrivate">YourPrivate Key</label>
+                    <input type="text" id="yourPrivate">
+                    <br>
+                    <button id="decrypt" onClick="decrypt()">Decrypt</button>
+                </section>
             </div>
-            <form>
-                <label for="messageTo">Message Recipient</label>
-                <input type="text" id="messageTo">
-                <label for="messageText">Message</label>
-                <input type="text" id="messageText">
 
-            </form>
-        </section>
+            <div class="col-md-8">
+                <section id="chat-panel">
+
+                    <div class="chat-window">
+                        <ul id="chat"></ul>
+                    </div>
+
+                    <br>
+                    <label for="messageTo">Message Recipient</label>
+                    <input type="text" id="messageTo">
+                    <br>
+                    <label for="messageText">Message</label>
+                    <input type="text" id="messageText">
+                    <br>
+                    <button onclick="sendmessage()">Send Message</button>
+                    
+                </section>
+                <br>
+                <section id="decryptedMessage-panel">
+                    <h2>Decrypted Messages:</h2>
+                    
+                </section>
+                <section id="serverMessage-panel">
+                    <h2>Server Messages:</h2>
+                    
+                </section>
+            </div>
+        </div>
     </div>
     <script src="{{url_for('static', filename='main.js')}}"></script>
 </body>
