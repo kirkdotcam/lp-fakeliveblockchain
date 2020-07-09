@@ -9,7 +9,6 @@ socketio = SocketIO(app)
 
 current_users = []
 
-
 def keyrequest(name="anonymous"):
     (public_ref,private_ref) = rsa.newkeys(512)
     public = public_ref._save_pkcs1_pem().decode("utf-8").split("\n")[1]
@@ -25,6 +24,7 @@ def keyrequest(name="anonymous"):
     user = {
         "pub_reference":public_ref,
         "priv_reference": private_ref,
+        "private": private,
         "user": public,
         "name": name
     }
@@ -35,10 +35,12 @@ def keyrequest(name="anonymous"):
 def find_user(userpublicpem):
     return list(filter(lambda x: x["user"],current_users))[0]
 
+def find_key(userprivatepem):
+    return list(filter(lambda x: x["private"],current_users))[0]
+
 @app.route("/")
 def index():
     return render_template("index.html")
-
 
 @socketio.on("connect")
 def socket_connection():
@@ -54,17 +56,20 @@ def socket_newkeys():
 
 @socketio.on("decrypt")
 def socket_decrypt(data):
-    pass
-
+    try:
+        msg = data["msg"]
+        binary = binascii.a2b_base64(msg)
+        privkey = find_key(data["private"])["priv_reference"]
+        decrypted = rsa.decrypt(binary,privkey).decode("utf-8")
+        emit("decryptedSuccess",{"message":decrypted})
+    except:
+        emit("decryptedFailure")
 
 
 @socketio.on("message")
 def socket_message(data):
 
-    
     try:
-
-
         recipient = find_user(data["to"])
         textset_msg = data["msg"].encode("utf-8")
    
@@ -78,12 +83,10 @@ def socket_message(data):
 
         # print(data["msg"])
         emit("newmessage",payload, broadcast=True)
-        
+
     except:
 
         emit("messageError")
-
-
 
 
 if __name__ == "__main__":

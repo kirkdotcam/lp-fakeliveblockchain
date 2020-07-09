@@ -22,16 +22,20 @@ socket.on("newkeys", (data, cb) => {
 
 });
 
-socket.on("decryptedSuccess")
+socket.on("decryptedSuccess", (data)=>{
+    console.log(data.message);
+})
 
-socket.on("decryptedFailure")
+socket.on("decryptedFailure",()=>{
+    alert("decryption Failed");
+})
 
 socket.on("newmessage",(data)=>{
     console.log("new message:", data)
 });
 
 socket.on("messageError", ()=>{
-    // alert("YA BLEW IT!")
+    alert("error on message send")
 })
 
 function sendmessage(msg, to) {
@@ -67,5 +71,11 @@ function renderMessages() {
 }
 
 function decrypt() {
-    socket.emit("decrypt")
+    let msg = document.getElementById("toDecrypt").value;
+
+    socket.emit("decrypt",{
+        msg,
+        private:userInfo.private
+    });
+
 }
