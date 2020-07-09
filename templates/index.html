@@ -1,13 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
+        integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <title>Two-Chain</title>
 </head>
+
 <body>
-    
+    <div>
+        <h1>Welcome to Two-Chain</h1>
+        <h3>A (not) 2U product</h3>
+    </div>
+
+    <div>
+        <aside>
+            <h1 id="titleheader"></h1>
+            <h2>Your Public Key</h2>
+            <p id="userpublic"></p>
+            <h2>Your Private Key</h2>
+            <p id="userprivate"></p>
+            <button onclick="sendmessage()"></button>
+
+        </aside>
+        <section>
+            <form>
+                <input type="text" id="message">
+
+            </form>
+        </section>
+    </div>
     <script src="{{url_for('static', filename='main.js')}}"></script>
 </body>
+
 </html>
