@@ -16,18 +16,31 @@
     </div>
 
     <div>
-        <aside>
+        <section id="userInfo">
             <h1 id="titleheader"></h1>
             <h2>Your Public Key</h2>
             <p id="userpublic"></p>
             <h2>Your Private Key</h2>
             <p id="userprivate"></p>
-            <button onclick="sendmessage()"></button>
-
-        </aside>
-        <section>
+            <button onclick="sendmessage()">Send Message</button>
+            <button onclick="newKeys()">Request New Keys</button>
+        </section>
+        <section id="decrypt">
+            <label for="toDecrypt">Text to Decrypt</label>
+            <input type="text" id="toDecrypt">
+            <label for="yourPrivate">YourPrivate Key</label>
+            <input type="text" id="yourPrivate">
+            <button id="decrypt" onClick="decrypt()">Decrypt</button>
+        </section>
+        <section id="chat">
+            <div>
+                <ul id="chat"></ul>
+            </div>
             <form>
-                <input type="text" id="message">
+                <label for="messageTo">Message Recipient</label>
+                <input type="text" id="messageTo">
+                <label for="messageText">Message</label>
+                <input type="text" id="messageText">
 
             </form>
         </section>
