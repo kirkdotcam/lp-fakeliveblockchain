@@ -12,7 +12,7 @@ socketio = SocketIO(app)
 def keyrequest():
     (public,private) = rsa.newkeys(512)
     public = public._save_pkcs1_pem().decode("utf-8").split("\n")[1]
-    private = private._save_pkcs1_pem.decode("utf-8").split("\n")[1]
+    private = private._save_pkcs1_pem().decode("utf-8").split("\n")[1]
     
     return {
         "public":public,
