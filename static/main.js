@@ -18,10 +18,7 @@ socket.on("connect", () => {
     however i can't see the use in having this function
     if it's not being logged to a file. 
 */
-socket.on("disconnect", (userInfo) => {
-    // console.log(userInfo);
-    socket.emit('disconnect', userInfo);
-})
+socket.on("disconnect", userInfo);
 
 socket.on("newkeys", (data, cb) => {
     // console.log(data);
