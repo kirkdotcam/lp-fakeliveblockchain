@@ -10,16 +10,24 @@ socket.on("connect", () => {
 
     // request new keys on connection
     newKeys();
-
 });
 
-socket.on("disconnect", userInfo)
+/*
+    This currently throws an error on the 
+    flask side that is automatically caught
+    however i can't see the use in having this function
+    if it's not being logged to a file. 
+*/
+socket.on("disconnect", (userInfo) => {
+    // console.log(userInfo);
+    socket.emit('disconnect', userInfo);
+})
 
 socket.on("newkeys", (data, cb) => {
     // console.log(data);
     Object.assign(userInfo, data);
     updateKeys();
-
+    console.log(userInfo);
 });
 
 socket.on("decryptedSuccess", (data) => {
@@ -46,15 +54,14 @@ function sendmessage(msg, to) {
     msg = msg ? msg : document.getElementById("messageText").value;
     to = to ? to : document.getElementById("messageTo").value;
 
-    if (!msg) alert("need a message!");
-    if (!to) alert("who am I sending this to?");
+    if (!msg) {alert("need a message!"); return;};
 
     let payload = {
-        msg,
-        to,
+        "msg":msg,
+        "to":to,
+        "sender": userInfo.username,
         from: userInfo.public
     }
-
     socket.emit("message", payload);
 };
 
@@ -69,19 +76,27 @@ function newKeys() {
     socket.emit("newkeys")
 }
 
-function renderMessages({ message, to }) {
+function renderMessages({ message, to , sender}) {
     let classStyle = to === userInfo.public ? "userMessage" : "otherMessage";
 
-    let recLi = document.createElement("li");
-    recLi.className = classStyle;
-    recLi.innerHTML = `Recipient:${to}`;
+    let senderLi = document.createElement("li");
+    senderLi.className = classStyle;
+    senderLi.innerHTML = `Sender: ${sender}`;
+
+    // // recLi -> recipient list element
+    // let recLi = document.createElement("li");
+    // recLi.className = classStyle;
+    // recLi.innerHTML = `Recipient:${to}`;
 
     let msgLi = document.createElement("li");
     msgLi.className = classStyle;
-    msgLi.innerHTML = `Message:${message}`;
+    msgLi.innerHTML = `Message: ${message}`;
+
+    
     
     let node = document.getElementById("chat");
-    node.append(recLi);
+    node.append(senderLi)
+    // node.append(recLi);
     node.append(msgLi)
     
     msgLi.scrollIntoView({block:"end"});
@@ -110,3 +125,7 @@ function decrypt() {
     });
 
 }
+
+function setUsername() {
+    userInfo.username = document.getElementById("setUserName").value
+} 
