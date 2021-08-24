@@ -79,7 +79,8 @@ def socket_message(data):
 
         payload = {
             "message":ascii_msg,
-            "to":data["to"]
+            "to":data["to"],
+            "sender":data['sender']
         }
 
         # print(data["msg"])
